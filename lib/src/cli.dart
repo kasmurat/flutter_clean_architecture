@@ -14,7 +14,7 @@ Future<void> run(List<String> args) async {
   try {
     var results = parser.parse(args);
 
-    if (results['help'] != null) {
+    if (results['help']) {
       if (results.command != null && results.command!.name == 'create') {
         printCreateCommandHelpContent(create);
         exit(0);
@@ -175,7 +175,7 @@ void printDefaultHelpContent(ArgParser parser) {
 }
 
 void printCreateCommandHelpContent(ArgParser parser) {
-  print('CLI For Flutter Clean Architecture Package\n');
+  print('Command Line Interface For Flutter Clean Architecture Package\n');
   print('create  Creates architecture related folders and files.\n');
   print('Options:');
   print('    ' + parser.usage);
