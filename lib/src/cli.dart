@@ -52,7 +52,7 @@ Future<void> run(List<String> args) async {
 
 Future<void> createDefaultArchitectureFolders() async {
   print('Creating Architecture Folders...');
-  var dir = '${Directory.current.path}/lib/';
+  var dir = '${Directory.current.path}/lib/src/';
 
   await Future.wait([
     Directory('${dir}app/pages').create(recursive: true),
@@ -71,7 +71,7 @@ Future<void> createDefaultArchitectureFolders() async {
 
 Future<void> createPage(String name) async {
   print('Creating page: $name');
-  var dir = '${Directory.current.path}/lib/app/pages/${name}/${name}';
+  var dir = '${Directory.current.path}/lib/src/app/pages/${name}/${name}';
 
   await Future.wait([
     File('${dir}_presenter.dart').create(recursive: true).then((_) async {
