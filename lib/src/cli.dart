@@ -114,7 +114,7 @@ import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import '${name}_presenter.dart';
 
 class ${pascalCaseName}Controller extends Controller {
-  ${pascalCaseName}Presenter _presenter;
+  final ${pascalCaseName}Presenter _presenter;
 
   ${pascalCaseName}Controller() : _presenter = ${pascalCaseName}Presenter();
 
