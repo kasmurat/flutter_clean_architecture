@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
@@ -74,13 +74,11 @@ import 'package:provider/provider.dart';
 ///     }
 ///
 /// ```
-abstract class Controller
-    with WidgetsBindingObserver, RouteAware, ChangeNotifier {
+abstract class Controller with WidgetsBindingObserver, RouteAware, ChangeNotifier {
   late bool _isMounted;
   late Logger logger;
   late GlobalKey<State<StatefulWidget>> _globalKey;
 
-  @mustCallSuper
   Controller() {
     logger = Logger('$runtimeType');
     _isMounted = true;
@@ -102,6 +100,8 @@ abstract class Controller
           break;
         case AppLifecycleState.detached:
           onDetached();
+          break;
+        default:
           break;
       }
     }
@@ -331,8 +331,7 @@ abstract class Controller
   void onInitState() {}
 }
 
-typedef ControlledBuilder<Con extends Controller> = Widget Function(
-    BuildContext context, Con controller);
+typedef ControlledBuilder<Con extends Controller> = Widget Function(BuildContext context, Con controller);
 
 /// This is a representation of a widget that is controlled by a [Controller] and needs to be re-rendered when
 /// [Controller.refreshUI] is triggered.
@@ -378,7 +377,6 @@ class ControlledWidgetBuilder<Con extends Controller> extends StatelessWidget {
   const ControlledWidgetBuilder({required this.builder});
 
   @override
-  Widget build(BuildContext context) => Consumer<Con>(
-      builder: (BuildContext context, Con controller, _) =>
-          builder(context, controller));
+  Widget build(BuildContext context) =>
+      Consumer<Con>(builder: (BuildContext context, Con controller, _) => builder(context, controller));
 }

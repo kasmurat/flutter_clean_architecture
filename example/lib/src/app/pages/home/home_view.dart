@@ -1,10 +1,10 @@
 import './home_controller.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 import '../../../data/repositories/data_users_repository.dart';
 
 class HomePage extends View {
-  const HomePage({Key key, this.title}) : super(key: key);
+  const HomePage({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -24,8 +24,7 @@ class HomePageState extends ViewState<HomePage, HomeController> {
         title: Text(widget.title),
       ),
       body: Scaffold(
-        key:
-            globalKey, // built in global key for the ViewState for easy access in the controller
+        key: globalKey, // built in global key for the ViewState for easy access in the controller
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

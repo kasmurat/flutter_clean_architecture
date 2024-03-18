@@ -8,8 +8,7 @@ Future<void> run(List<String> args) async {
 
   var parser = ArgParser();
   parser.addCommand('create', create);
-  parser.addFlag('help',
-      abbr: 'h', help: 'Show this message and exit.', negatable: false);
+  parser.addFlag('help', abbr: 'h', help: 'Show this message and exit.', negatable: false);
 
   try {
     var results = parser.parse(args);
@@ -25,8 +24,7 @@ Future<void> run(List<String> args) async {
     }
 
     if (results.command != null) {
-      if (results.command!.name == 'create' &&
-          results.command!['page'] != null) {
+      if (results.command!.name == 'create' && results.command!['page'] != null) {
         await createPage(results.command?['page']);
         exit(0);
       } else if (results.command!.arguments.isEmpty) {
@@ -79,8 +77,7 @@ Future<void> createPage(String name) async {
       print('Created Presenter.');
     }),
     File('${dir}_controller.dart').create(recursive: true).then((_) async {
-      await File('${dir}_controller.dart')
-          .writeAsString(controllerContent(name));
+      await File('${dir}_controller.dart').writeAsString(controllerContent(name));
       print('Created Controller.');
     }),
     File('${dir}_view.dart').create(recursive: true).then((_) async {
@@ -130,7 +127,7 @@ String viewContent(String name) {
   var pascalCaseName = convertToPascalCase(name);
 
   return '''
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide View;
 import 'package:flutter_clean_architecture/flutter_clean_architecture.dart';
 
 import '${name}_controller.dart';
@@ -148,8 +145,9 @@ class _${pascalCaseName}ViewState extends ViewState<${pascalCaseName}View, ${pas
   _${pascalCaseName}ViewState(${pascalCaseName}Controller controller) : super(controller);
 
   @override
-  // TODO: implement view
-  Widget get view => throw UnimplementedError();
+  Widget get view {
+    return const Placeholder();
+  }
 }
   ''';
 }
